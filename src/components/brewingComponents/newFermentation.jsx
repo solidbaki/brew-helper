@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BATCH_STEPS } from "../../constants";
+import { v4 as uuidv4 } from "uuid";
 
 const BrewingForm = () => {
   const today = new Date().toISOString().split("T")[0];
   const navigate = useNavigate();
+  const uniqueId = uuidv4();  
 
   const [formData, setFormData] = useState({
+    id: uniqueId,
     batchName: "",
     brewDate: today,
     startingGravity: "",
