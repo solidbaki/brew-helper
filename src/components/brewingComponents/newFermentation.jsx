@@ -41,7 +41,7 @@ const BrewingForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="border-solid border-2 border-amber-800 p-5 m-5 bg-yellow-400 rounded-lg mx-auto mx-3 md:mx-6 lg:mx-32 xl:mx-64"
+      className="border-solid border-2 border-amber-800 p-5 m-5 bg-yellow-400 rounded-lg mx-auto md:mx-6 lg:mx-32 xl:mx-64"
     >
       <div className="mb-5">
         <label htmlFor="batchName" className="block font-semibold">

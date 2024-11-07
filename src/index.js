@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NotFound from "./components/mainComponents/notFound";
 import NewBatchComponent from "./components/brewingComponents/newBatchComponent";
 import CurrentlyFermentingBrews from "./components/bottlingComponents/currentlyFermentingBrews";
+import BottlingForm from "./components/bottlingComponents/bottlingForm";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -14,6 +15,7 @@ root.render(
     <Routes>    
         <Route path="/" element={<App />} />
         <Route path="bottle" element={<App />} />
+        <Route path="bottle/:id" element={<BottlingForm />} />
         <Route path="review" element={<App />} />
         <Route path="brew" element={<NewBatchComponent />} />
         <Route path="brews" element={<CurrentlyFermentingBrews />} />
