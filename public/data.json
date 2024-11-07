@@ -1,0 +1,19 @@
+{
+  "keyFeatures": [
+    {
+      "title": "Brewing Made Simple",
+      "description": "Dive into the brewing process with confidence. Our intuitive brewing tools guide you through each stage, from selecting the perfect ingredients to monitoring your brew’s progress. Customize recipes, track temperature, and capture detailed notes so you can recreate or refine every batch.",
+      "svg": "images/feature1.svg"
+    },
+    {
+      "title": "Bottling & Beyond",
+      "description": "Once your brew is ready, our Bottling feature simplifies preparation, tracking, and storage. Record bottle counts, mark batch numbers, and set reminders for carbonation times. Plus, keep a log of tasting notes so you can track how your brew matures.",
+      "svg": "images/feature1.svg"
+    },
+    {
+      "title": "Review & Refine",
+      "description": "Every batch has its own story. With our Review feature, revisit and analyze each brew’s details, from brewing notes to tasting experiences. Rate your batches, log feedback, and document any improvements to make with each brew. This way, you can consistently refine recipes and enhance the quality of future brews based on your own tastes and preferences.",
+      "svg": "images/feature1.svg"
+    }
+  ]
+}
