@@ -7,7 +7,6 @@ const BottlingForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("asd");
   };
 
   const handleChange = (e) => {
@@ -36,6 +35,20 @@ const BottlingForm = () => {
           onChange={handleChange}
           step="1.050"
         />
+      </div>
+
+      <div className="mb-5">
+        <label htmlFor="bottlingDate" className="block font-semibold">
+          Bottling Type
+          <div>
+            <input type="radio" value="" />
+            <label>Bottle</label>
+          </div>
+          <div>
+            <input type="radio" value="" />
+            <label>Keg</label>
+          </div>
+        </label>
       </div>
     </form>
   );
