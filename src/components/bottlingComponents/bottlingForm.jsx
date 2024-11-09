@@ -1,17 +1,37 @@
 import { useState } from "react";
+import BottlingSpecificFormFields from "./bottlingSpecificFormFields";
+import KeggingSpecificFormFields from "./keggingSpecificFormFields";
+import { useNavigate, useParams } from "react-router-dom";
 
 const BottlingForm = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     finalGravity: "",
     bottlingType: "bottle",
-    bottlingNotes: "",
+    notes: "",
     bottlingDate: new Date().toISOString().split("T")[0],
-    // Add more fields as needed for each type
+    id,
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // handle form submission logic here
+    // add info to the "bottled brews list"
+    const currentBottledBrews = JSON.parse(
+      localStorage.getItem("bottledBrews") || "[]"
+    );
+    const updatedBottledBrews = [...currentBottledBrews, formData];
+    localStorage.setItem("bottledBrews", JSON.stringify(updatedBottledBrews));
+
+    //delete from brews
+    const currentBrews = JSON.parse(localStorage.getItem("brews") || "[]");
+    const updatedBrews = currentBrews.filter((brew) => brew.id !== id);
+    localStorage.setItem("brews", JSON.stringify(updatedBrews));
+    console.log(formData);
+
+    //navigate to brews page
+    navigate("/brews");
   };
 
   const handleChange = (e) => {
@@ -21,94 +41,6 @@ const BottlingForm = () => {
       [name]: value,
     }));
   };
-
-  const renderBottlingFields = () => (
-    <>
-      <div className="mb-5">
-        <label htmlFor="numberOfBottles" className="block font-semibold">
-          Number of Bottles:
-        </label>
-        <input
-          type="number"
-          id="numberOfBottles"
-          name="numberOfBottles"
-          value={formData.numberOfBottles || ""}
-          onChange={handleChange}
-          className="block w-full rounded-md mt-1 placeholder-amber-950 pl-3"
-        />
-      </div>
-      <div className="mb-5">
-        <label htmlFor="bottleSize" className="block font-semibold">
-          Bottle Size (ml):
-        </label>
-        <input
-          type="number"
-          id="bottleSize"
-          name="bottleSize"
-          value={formData.bottleSize || ""}
-          onChange={handleChange}
-          className="block w-full rounded-md mt-1 placeholder-amber-950 pl-3"
-        />
-      </div>
-      <div className="mb-5">
-        <label htmlFor="primingSugar" className="block font-semibold">
-          Priming Sugar (g):
-        </label>
-        <input
-          type="number"
-          id="primingSugar"
-          name="primingSugar"
-          value={formData.primingSugar || ""}
-          onChange={handleChange}
-          className="block w-full rounded-md mt-1 placeholder-amber-950 pl-3"
-        />
-      </div>
-    </>
-  );
-
-  const renderKeggingFields = () => (
-    <>
-      <div className="mb-5">
-        <label htmlFor="kegSize" className="block font-semibold">
-          Keg Size (L):
-        </label>
-        <input
-          type="number"
-          id="kegSize"
-          name="kegSize"
-          value={formData.kegSize || ""}
-          onChange={handleChange}
-          className="block w-full rounded-md mt-1 placeholder-amber-950 pl-3"
-        />
-      </div>
-      <div className="mb-5">
-        <label htmlFor="co2Pressure" className="block font-semibold">
-          CO₂ Pressure (PSI):
-        </label>
-        <input
-          type="number"
-          id="co2Pressure"
-          name="co2Pressure"
-          value={formData.co2Pressure || ""}
-          onChange={handleChange}
-          className="block w-full rounded-md mt-1 placeholder-amber-950 pl-3"
-        />
-      </div>
-      <div className="mb-5">
-        <label htmlFor="servingTemp" className="block font-semibold">
-          Serving Temperature (°C):
-        </label>
-        <input
-          type="number"
-          id="servingTemp"
-          name="servingTemp"
-          value={formData.servingTemp || ""}
-          onChange={handleChange}
-          className="block w-full rounded-md mt-1 placeholder-amber-950 pl-3"
-        />
-      </div>
-    </>
-  );
 
   return (
     <form
@@ -171,17 +103,29 @@ const BottlingForm = () => {
         </div>
       </div>
 
-      {formData.bottlingType === "bottle" ? renderBottlingFields() : renderKeggingFields()}
+      {formData.bottlingType === "bottle" && (
+        <BottlingSpecificFormFields
+          handleChange={handleChange}
+          formData={formData}
+        />
+      )}
+
+      {formData.bottlingType === "keg" && (
+        <KeggingSpecificFormFields
+          handleChange={handleChange}
+          formData={formData}
+        />
+      )}
 
       <div className="mb-5">
         <label htmlFor="bottlingNotes" className="block font-semibold">
-          Bottling Notes:
+          Notes:
         </label>
         <textarea
           type="text"
-          id="bottlingNotes"
-          name="bottlingNotes"
-          value={formData.bottlingNotes}
+          id="notes"
+          name="notes"
+          value={formData.notes}
           onChange={handleChange}
           className="block w-full rounded-md mt-1 placeholder-amber-950 pl-3"
         />
