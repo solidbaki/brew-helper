@@ -12,6 +12,7 @@ const BottlingSpecificFormFields = (props) => {
           value={props.formData.numberOfBottles || ""}
           onChange={props.handleChange}
           className="block w-full rounded-md mt-1 placeholder-amber-950 pl-3"
+          required
         />
       </div>
       <div className="mb-5">
@@ -25,6 +26,7 @@ const BottlingSpecificFormFields = (props) => {
           value={props.formData.bottleSize || ""}
           onChange={props.handleChange}
           className="block w-full rounded-md mt-1 placeholder-amber-950 pl-3"
+          required
         />
       </div>
       <div className="mb-5">
@@ -38,6 +40,7 @@ const BottlingSpecificFormFields = (props) => {
           value={props.formData.primingSugar || ""}
           onChange={props.handleChange}
           className="block w-full rounded-md mt-1 placeholder-amber-950 pl-3"
+          required
         />
       </div>
     </>

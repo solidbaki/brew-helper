@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DownArrowIcon from "../../assets/icons/downArrowIcon";
@@ -20,53 +19,110 @@ const BottledBrewsListItem = (props) => {
         onClick={handleClick}
       >
         <div className="flex flex-col">
-          <p className="font-bold">{brew.batchName}</p>
+          <p className="font-bold">{brew?.initialBrewInfo?.batchName ? brew?.initialBrewInfo?.batchName : "Batch Name Undefined"}</p>
+
           {itemClicked && (
             <>
-              {brew.brewDate && (
+              {brew?.brewDate && (
                 <p>
                   <span className="font-semibold">Brew Date: </span>
-                  {brew.brewDate}
+                  {brew?.brewDate}
                 </p>
               )}
-              {brew.batchSize && (
+              {brew?.batchSize && (
                 <p>
                   <span className="font-semibold">Batch Size: </span>
-                  {brew.batchSize}
+                  {brew?.batchSize}
                 </p>
               )}
-              {brew.startingGravity && (
+              {brew?.startingGravity && (
                 <p>
                   <span className="font-semibold">Starting Gravity: </span>
-                  {brew.startingGravity}
+                  {brew?.startingGravity}
                 </p>
               )}
-              {brew.targetGravity && (
+              {brew?.targetGravity && (
                 <p>
                   <span className="font-semibold">Target Gravity: </span>
-                  {brew.targetGravity}
+                  {brew?.targetGravity}
                 </p>
               )}
-              {brew.startingTemp && (
+              {brew?.startingTemp && (
                 <p>
                   <span className="font-semibold">Starting Temperature: </span>
-                  {brew.startingTemp}&#8451;
+                  {brew?.startingTemp}&#8451;
                 </p>
               )}
-              {brew.fermentationTemp && (
+              {brew?.fermentationTemp && (
                 <p>
                   <span className="font-semibold">
                     Fermentation Temperature:{" "}
                   </span>
-                  {brew.fermentationTemp}&#8451;
+                  {brew?.fermentationTemp}&#8451;
                 </p>
               )}
-              {brew.yeastType && (
+              {brew?.yeastType && (
                 <p>
                   <span className="font-semibold">Yeast Type: </span>
-                  {brew.yeastType}
+                  {brew?.yeastType}
                 </p>
               )}
+              {brew?.notes && (
+                <p>
+                  <span className="font-semibold">Notes: </span>
+                  {brew?.notes}
+                </p>
+              )}
+              {
+                <p>
+                  <span className="font-semibold">Bottling Type: </span>
+                  {brew.bottlingType}
+                </p>
+              }
+
+              {
+                // If the brew is bottled
+                brew?.bottlingType === "bottle" && (
+                  <>
+                    <p>
+                      <span className="font-semibold">Number of Bottles: </span>
+                      {brew?.numberOfBottles}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Bottle Size: </span>
+                      {brew?.bottleSize}
+                    </p>
+                    <p>
+                      <span className="font-semibold">
+                        Priming Sugar in grams:{" "}
+                      </span>
+                      {brew?.primingSugar}
+                    </p>
+                  </>
+                )
+              }
+
+              {
+                // If the brew is kegged
+                brew.bottlingType === "keg" && (
+                  <>
+                    <p>
+                      <span className="font-semibold">Keg Size: </span>
+                      {brew?.kegSize}
+                    </p>
+                    <p>
+                      <span className="font-semibold">CO2 Pressure: </span>
+                      {brew?.co2Pressure}
+                    </p>
+                    <p>
+                      <span className="font-semibold">
+                        Serving Temperature:{" "}
+                      </span>
+                      {brew?.servingTemp}
+                    </p>
+                  </>
+                )
+              }
               {brew.notes && (
                 <p>
                   <span className="font-semibold">Notes: </span>

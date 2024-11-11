@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BottlingSpecificFormFields from "./bottlingSpecificFormFields";
 import KeggingSpecificFormFields from "./keggingSpecificFormFields";
 import { useNavigate, useParams } from "react-router-dom";
+import { BATCH_STEPS } from "../../constants";
 
 const BottlingForm = () => {
   const { id } = useParams();
@@ -13,24 +14,40 @@ const BottlingForm = () => {
     notes: "",
     bottlingDate: new Date().toISOString().split("T")[0],
     id,
+    currentStep: BATCH_STEPS.BOTTLE,
+    initialBrewInfo: {},
   });
+
+  useEffect(() => {
+    // Load the initial brew data when the component mounts
+    const currentBrewData = JSON.parse(localStorage.getItem("brews")) || [];
+    const currentBrew = currentBrewData.find((brew) => brew.id === id);
+
+    if (currentBrew) {
+      setFormData((prevData) => ({
+        ...prevData,
+        initialBrewInfo: currentBrew,
+      }));
+    }
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // add info to the "bottled brews list"
-    const currentBottledBrews = JSON.parse(
-      localStorage.getItem("bottledBrews") || "[]"
-    );
-    const updatedBottledBrews = [...currentBottledBrews, formData];
+
+    // Prepare form data with initial brew info for saving
+    const updatedFormData = { ...formData, initialBrewInfo: formData.initialBrewInfo };
+
+    // Add info to the "bottledBrews" list
+    const currentBottledBrews = JSON.parse(localStorage.getItem("bottledBrews") || "[]");
+    const updatedBottledBrews = [...currentBottledBrews, updatedFormData];
     localStorage.setItem("bottledBrews", JSON.stringify(updatedBottledBrews));
 
-    //delete from brews
+    // Delete from "brews" to prevent duplication
     const currentBrews = JSON.parse(localStorage.getItem("brews") || "[]");
     const updatedBrews = currentBrews.filter((brew) => brew.id !== id);
     localStorage.setItem("brews", JSON.stringify(updatedBrews));
-    console.log(formData);
 
-    //navigate to brews page
+    // Navigate to brews page
     navigate("/brews");
   };
 
@@ -118,7 +135,7 @@ const BottlingForm = () => {
       )}
 
       <div className="mb-5">
-        <label htmlFor="bottlingNotes" className="block font-semibold">
+        <label htmlFor="notes" className="block font-semibold">
           Notes:
         </label>
         <textarea
